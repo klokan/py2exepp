@@ -8,3 +8,8 @@ setup(
     console = ["sum_primes.py"],
     data_files = [ ('',[r'C:\Python25\python.exe']) ],
 )
+
+# We need to add the source code of the function into the library.zip modules
+from zipfile import ZipFile
+zip = ZipFile('dist/library.zip','a')
+zip.write("primes.py")
