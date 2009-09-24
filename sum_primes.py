@@ -10,27 +10,12 @@ import sys
 import pp
 
 
-def isprime(n):
-    """Returns True if n is prime and False otherwise"""
-    if not isinstance(n, int):
-        raise TypeError("argument passed to is_prime is not of 'int' type")
-    if n < 2:
-        return False
-    if n == 2:
-        return True
-    max = int(math.ceil(math.sqrt(n)))
-    i = 2
-    while i <= max:
-        if n % i == 0:
-            return False
-        i += 1
-    return True
+# Let's move the functionality to external module - to avoid "could not get source" error for .pyc only
+# You have to run: "zip -u dist\library.zip primes.py"
 
+from primes import sum_primes, isprime 
 
-def sum_primes(n):
-    """Calculates sum of all primes below given integer n"""
-    return sum([x for x in xrange(2, n) if isprime(x)])
-
+# If you don't want to distribute the source code of your function you can move the functionality to another external module and add it to the list of dependent module names in job_server.submit() - last argument. 
 
 print """Usage: python sum_primes.py [ncpus]
     [ncpus] - the number of workers to run in parallel,

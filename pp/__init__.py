@@ -127,6 +127,9 @@ class _Worker(object):
             + os.path.dirname(os.path.abspath(__file__))\
             + os.sep + "ppworker.py\""
 
+    if sys.executable.lower().find('python') == -1:
+        command = '''python -u -c "import sys; sys.path.append('library.zip'); from pp.ppworker import _WorkerProcess; wp = _WorkerProcess(); wp.run()" '''
+
     if sys.platform.startswith("win"):
         # workargound for windows
         command = "\"" + command + "\""
