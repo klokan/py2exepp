@@ -4,9 +4,9 @@ import py2exe, sys, os
 sys.argv.append('py2exe')
 
 setup(
-    options = { 'py2exe': { 'includes': ["pp.ppworker"] } },
-    console = ["sum_primes.py"],
-    data_files = [ ('',[r'C:\Python25\python.exe']) ],
+    options = { 'py2exe': { 'unbuffered': True } },
+    console = ["sum_primes.py", "ppworker.py"],
+    data_files = [ ('',[r'C:\Python25\python.exe','ppworker.py']) ],
 )
 
 # We need to add the source code of the function into the library.zip modules

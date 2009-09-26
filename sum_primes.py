@@ -17,6 +17,14 @@ from primes import sum_primes, isprime
 
 # If you don't want to distribute the source code of your function you can move the functionality to another external module and add it to the list of dependent module names in job_server.submit() - last argument. 
 
+# If we use py2exe then this script must act like ppworker.py when called with "ppworker.py" argument
+if hasattr(sys, "frozen") and len(sys.argv) > 2 and sys.argv[1] == '-u' and sys.argv[2].find('ppworker.py'):
+    from pp.ppworker import _WorkerProcess
+    wp = _WorkerProcess()
+    wp.run()
+    sys.exit(0)
+# Otherwise just start the normal code:
+
 print """Usage: python sum_primes.py [ncpus]
     [ncpus] - the number of workers to run in parallel,
     if omitted it will be set to the number of processors in the system"""

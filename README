@@ -31,4 +31,13 @@ In the setup.py is an extra "zip" step to include the source code of function ne
 We must distribute the python.exe binary as well, because py2exe does not correctly implement the "unbuffered" option.
 Once the "python -u" equivalent is available via py2exe, we have more options:
  - Distribute special ppworker.exe (compiled from ppworker.py)
- - Implement something like http://docs.python.org/dev/library/multiprocessing.html#multiprocessing.freeze%5Fsupport for pp.
+ - Implement something like http://docs.python.org/dev/library/multiprocessing.html#multiprocessing.freeze%5Fsupport for pp. This means we can distribute only one executable (sum_primes.exe), which when start with argument containing "ppworker.py" behaves like ppworker.
+
+To test correct implementation of the unbuffered mode just change the pp/__init__.py line 131-133:
+- "python -u ppworker.py" runs well
+- "python ppworker.py" ends with EOFError during __unpickle
+- "ppworker.exe" end with the same error as "python ppworker.py" - so unbuffered is not correct
+
+If you remove the whole condition at line 130, the sum_primes.exe is called as "sum_primes.exe -u ppworker.py", which is correctly catched by sum_primes.py argv test, but again, we end on EOFError. :-(
+
+

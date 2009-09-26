@@ -128,7 +128,9 @@ class _Worker(object):
             + os.sep + "ppworker.py\""
 
     if sys.executable.lower().find('python') == -1:
-        command = '''python -u -c "import sys; sys.path.append('library.zip'); from pp.ppworker import _WorkerProcess; wp = _WorkerProcess(); wp.run()" '''
+        command = '''python -u ppworker.py'''
+        #command = '''python ppworker.py''' # Uncomment and you get the "EOFError"
+        #command = '''ppworker.exe''' # Uncomment for testing the compiled version, again "EOFError"
 
     if sys.platform.startswith("win"):
         # workargound for windows
